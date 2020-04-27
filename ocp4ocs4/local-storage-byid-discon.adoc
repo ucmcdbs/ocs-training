@@ -60,7 +60,7 @@ Select `OpenShift Container Storage Operator` and then select *Install*.
 On the next screen make sure the settings are as shown in this figure. Also, make sure to change to `A specific namespace on the cluster` and chose namespace `openshift-storage`.
 
 .OCP Subscribe to OpenShift Container Storage
-image::OCS4-OCP-OperatorHub-Subscribe.png[OCP OperatorHub Subscribe]
+image::OCS4-OperatorHub-Subscribe.png[OCP OperatorHub Subscribe]
 
 NOTE: Do not change any configuration other than the namespace as shown above.
 
@@ -68,25 +68,25 @@ Click `Subscribe`.
 
 Now you can go back to your terminal window to check the progress of the installation.
 
-[source,role="execute"]
-----
-watch oc -n openshift-storage get csv
-----
-.Example output:
-----
-NAME                            DISPLAY                       VERSION        REPLACES   PHASE
-lib-bucket-provisioner.v1.0.0   lib-bucket-provisioner        1.0.0                     Installing
-ocs-operator.v4.3.0             OpenShift Container Storage   4.3.0                     Succeeded
-----
+// [source,role="execute"]
+// ----
+// watch oc -n openshift-storage get csv
+// ----
+// .Example output:
+// ----
+// NAME                            DISPLAY                       VERSION        // REPLACES   PHASE
+// lib-bucket-provisioner.v1.0.0   lib-bucket-provisioner        1.0.0                      Installing
+// ocs-operator.v4.3.0             OpenShift Container Storage   4.3.0                     Succeeded
+// ----
 
-You can exit by pressing kbd:[Ctrl+C]
+// You can exit by pressing kbd:[Ctrl+C]
 
 The resource `csv` is a shortened word for `clusterserviceversions.operators.coreos.com`.
 
-[IMPORTANT]
-====
-Prior to OCS 4.4, the lib-bucket-provisioner `csv` and `deployment` will need to be edited and the image *quay.io/noobaa/pause* will need to be replaced with *quay.io/noobaa/pause@sha256:b31bfb4d0213f254d361e0079deaaebefa4f82ba7aa76ef82e90b4935ad5b105*. Edit the lib-bucket-provisioner `csv` first with this image@sha. Next, edit the lib-bucket-provisioner `deployment` and replace kubernetes/pause with this image@sha if not already correct.
-====
+// [IMPORTANT]
+// ====
+// Prior to OCS 4.4, the lib-bucket-provisioner `csv` and `deployment` will need to be edited and the image *quay.io/noobaa/pause* will need to be replaced with *quay.io/noobaa/pause@sha256:b31bfb4d0213f254d361e0079deaaebefa4f82ba7aa76ef82e90b4935ad5b105*. Edit the lib-bucket-provisioner `csv` first with this image@sha. Next, edit the lib-bucket-provisioner `deployment` and replace kubernetes/pause with this image@sha if not already correct.
+// ====
 
 [source,role="execute"]
 ----
@@ -94,11 +94,10 @@ watch oc -n openshift-storage get csv
 ----
 .Example output:
 ----
-NAME                            DISPLAY                       VERSION        REPLACES   PHASE
-lib-bucket-provisioner.v1.0.0   lib-bucket-provisioner        1.0.0                     Succeeded
-ocs-operator.v4.3.0             OpenShift Container Storage   4.3.0                     Succeeded
+NAME                         DISPLAY                       VERSION        REPLACES   PHASE
+ocs-operator.v4.4.0-415.ci   OpenShift Container Storage   4.4.0-415.ci              Succeeded
 ----
-.Please wait until both operators `PHASE` changes to `Succeeded`
+.Please wait until the operator `PHASE` changes to `Succeeded`
 
 You can exit by pressing kbd:[Ctrl+C]
 
@@ -111,7 +110,6 @@ oc -n openshift-storage get pods
 .Example output:
 ----
 NAME                                      READY   STATUS    RESTARTS   AGE
-lib-bucket-provisioner-55f74d96f6-mkrz2   1/1     Running   0          3m48s
 noobaa-operator-68c8fbdff5-kgxxt          1/1     Running   0          3m41s
 ocs-operator-78d98758db-dwc8h             1/1     Running   0          3m41s
 rook-ceph-operator-55cb44fcfc-wxppc       1/1     Running   0          3m41s
@@ -119,7 +117,7 @@ rook-ceph-operator-55cb44fcfc-wxppc       1/1     Running   0          3m41s
 
 Navigate to the `Operators` menu on the left and select `Installed Operators`. Make sure the selected project at the top of the UI pane is set to `openshift-storage`. What you see should be similar to the following example:
 
-image::OCP4-installed-operators.png[Openshift showing the installed operators in namespace openshift-storage]
+image::OCP4-installed-operators-rc.png[Openshift showing the installed operators in namespace openshift-storage]
 
 Now that the operator pods are running, you can create a Storage Cluster.
 
