@@ -32,3 +32,4 @@ spec:
   image: quay.io/rh-storage-partners/ocs-olm-operator@sha256:e73f5105a76a1abf0524d277f77fb13890c99e1dc583ab7141f06cfdbd68a29d
   publisher: Red Hat
   sourceType: grpc
+  
